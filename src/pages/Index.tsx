@@ -1,6 +1,13 @@
 
 import Navbar from "@/components/Navbar";
 import { Search, Bell, Calendar, Clock } from "lucide-react";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Index = () => {
   const currentDate = new Date();
@@ -51,6 +58,12 @@ const Index = () => {
               <button className="p-2 rounded-full hover:bg-muted transition-colors">
                 <Bell size={24} />
               </button>
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium">Amrit Raj</span>
+                <Avatar className="h-8 w-8">
+                  <AvatarFallback className="bg-primary text-primary-foreground">AR</AvatarFallback>
+                </Avatar>
+              </div>
             </div>
           </div>
         </div>
