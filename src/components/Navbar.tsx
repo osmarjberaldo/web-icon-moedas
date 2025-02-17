@@ -1,6 +1,13 @@
 
-import { Home, ClipboardList, Users, Menu, Bell, MoreHorizontal } from "lucide-react";
+import { Home, ClipboardList, Users, Menu, Bell, LogOut, User } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const Navbar = () => {
   const location = useLocation();
@@ -25,10 +32,23 @@ const Navbar = () => {
           <Users size={24} />
           <span className="text-sm">Tables</span>
         </Link>
-        <button className="nav-item">
-          <MoreHorizontal size={24} />
-          <span className="text-sm">More</span>
-        </button>
+        <DropdownMenu>
+          <DropdownMenuTrigger className="nav-item">
+            <Avatar className="h-8 w-8">
+              <AvatarFallback className="bg-primary text-primary-foreground">AR</AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuItem className="flex items-center gap-2">
+              <User size={16} />
+              <span>Amrit Raj</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="text-red-500 flex items-center gap-2">
+              <LogOut size={16} />
+              <span>Logout</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </nav>
   );

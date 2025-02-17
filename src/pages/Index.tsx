@@ -1,6 +1,6 @@
 
 import Navbar from "@/components/Navbar";
-import { Search, Bell } from "lucide-react";
+import { Search, Bell, Calendar, Clock } from "lucide-react";
 
 const Index = () => {
   const currentDate = new Date();
@@ -8,6 +8,12 @@ const Index = () => {
     month: 'long',
     day: 'numeric',
     year: 'numeric'
+  }).format(currentDate);
+
+  const formattedTime = new Intl.DateTimeFormat('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true
   }).format(currentDate);
 
   const recentOrders = [
@@ -54,8 +60,22 @@ const Index = () => {
         <div className="flex gap-6">
           <div className="flex-1">
             <section className="mb-8">
-              <h2 className="text-2xl font-display mb-1">Good Morning, Amrit</h2>
-              <p className="text-muted-foreground">Give your best services for customers 😊</p>
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h2 className="text-2xl font-display mb-1">Good Morning, Amrit</h2>
+                  <p className="text-muted-foreground">Give your best services for customers 😊</p>
+                </div>
+                <div className="flex items-center gap-4 text-muted-foreground">
+                  <div className="flex items-center gap-2">
+                    <Calendar size={18} />
+                    <span>{formattedDate}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Clock size={18} />
+                    <span>{formattedTime}</span>
+                  </div>
+                </div>
+              </div>
               
               <div className="grid grid-cols-2 gap-6 mt-6">
                 <div className="glass-card p-6">
