@@ -51,88 +51,94 @@ const Index = () => {
       </header>
 
       <main className="max-w-screen-xl mx-auto px-4 py-6">
-        <section className="mb-8">
-          <h2 className="text-2xl font-display mb-1">Good Morning, Amrit</h2>
-          <p className="text-muted-foreground">Give your best services for customers 😊</p>
-          
-          <div className="grid grid-cols-2 gap-4 mt-6">
-            <div className="glass-card p-4">
-              <div className="flex items-center gap-4">
-                <div className="p-3 rounded-lg bg-primary/10">
-                  <span className="text-2xl">💰</span>
+        <div className="flex gap-6">
+          <div className="flex-1">
+            <section className="mb-8">
+              <h2 className="text-2xl font-display mb-1">Good Morning, Amrit</h2>
+              <p className="text-muted-foreground">Give your best services for customers 😊</p>
+              
+              <div className="grid grid-cols-2 gap-6 mt-6">
+                <div className="glass-card p-6">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 rounded-lg bg-primary/10">
+                      <span className="text-2xl">💰</span>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground text-sm">Total Earnings</p>
+                      <h3 className="text-4xl font-semibold mt-1">₹512</h3>
+                      <p className="text-sm text-green-500 mt-1">1.6% than yesterday</p>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-muted-foreground text-sm">Total Earnings</p>
-                  <h3 className="text-2xl font-semibold">₹512</h3>
-                  <p className="text-sm text-green-500">1.6% than yesterday</p>
+                <div className="glass-card p-6">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 rounded-lg bg-primary/10">
+                      <span className="text-2xl">⏳</span>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground text-sm">In Progress</p>
+                      <h3 className="text-4xl font-semibold mt-1">16</h3>
+                      <p className="text-sm text-green-500 mt-1">3.6% than yesterday</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="glass-card p-4">
-              <div className="flex items-center gap-4">
-                <div className="p-3 rounded-lg bg-primary/10">
-                  <span className="text-2xl">⏳</span>
-                </div>
-                <div>
-                  <p className="text-muted-foreground text-sm">In Progress</p>
-                  <h3 className="text-2xl font-semibold">16</h3>
-                  <p className="text-sm text-green-500">3.6% than yesterday</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+            </section>
 
-        <section className="mb-8">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-display font-medium">Recent Orders</h2>
-            <button className="text-sm text-primary hover:text-primary/80">View all</button>
-          </div>
-          <div className="glass-card divide-y divide-border/50">
-            {recentOrders.map((order) => (
-              <div key={order.id} className="flex items-center justify-between p-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-primary text-primary-foreground rounded-lg flex items-center justify-center font-medium">
-                    AM
-                  </div>
-                  <div>
-                    <h3 className="font-medium">{order.name}</h3>
-                    <p className="text-sm text-muted-foreground">{order.items} Items</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="px-3 py-1 rounded-lg bg-primary/10 text-primary text-sm">
-                    Table No: {order.table}
-                  </span>
-                  <span className="text-green-500 text-sm">{order.status}</span>
-                </div>
+            <section>
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-display font-medium">Recent Orders</h2>
+                <button className="text-sm text-primary hover:text-primary/80">View all</button>
               </div>
-            ))}
+              <div className="glass-card divide-y divide-border/50">
+                {recentOrders.map((order) => (
+                  <div key={order.id} className="flex items-center justify-between p-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-primary text-primary-foreground rounded-lg flex items-center justify-center font-medium">
+                        AM
+                      </div>
+                      <div>
+                        <h3 className="font-medium">{order.name}</h3>
+                        <p className="text-sm text-muted-foreground">{order.items} Items</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <span className="px-3 py-1 rounded-lg bg-primary/10 text-primary text-sm">
+                        Table No: {order.table}
+                      </span>
+                      <span className="text-green-500 text-sm">{order.status}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
           </div>
-        </section>
 
-        <section>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-display font-medium">Popular Dishes</h2>
-            <button className="text-sm text-primary hover:text-primary/80">View all</button>
-          </div>
-          <div className="space-y-4">
-            {popularDishes.map((dish, index) => (
-              <div key={dish.id} className="glass-card p-4 flex items-center gap-4">
-                <span className="text-2xl w-12 h-12 flex items-center justify-center bg-primary/10 rounded-lg">
-                  {dish.image}
-                </span>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <span className="text-muted-foreground font-medium">0{index + 1}</span>
-                    <h3 className="font-medium">{dish.name}</h3>
-                  </div>
-                  <p className="text-sm text-muted-foreground">Orders: {dish.orders}</p>
-                </div>
+          <div className="w-80">
+            <section>
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-display font-medium">Popular Dishes</h2>
+                <button className="text-sm text-primary hover:text-primary/80">View all</button>
               </div>
-            ))}
+              <div className="space-y-4">
+                {popularDishes.map((dish, index) => (
+                  <div key={dish.id} className="glass-card p-4 flex items-center gap-4">
+                    <span className="text-2xl w-12 h-12 flex items-center justify-center bg-primary/10 rounded-lg">
+                      {dish.image}
+                    </span>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-muted-foreground font-medium">0{index + 1}</span>
+                        <h3 className="font-medium">{dish.name}</h3>
+                      </div>
+                      <p className="text-sm text-muted-foreground">Orders: {dish.orders}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
           </div>
-        </section>
+        </div>
       </main>
 
       <Navbar />
