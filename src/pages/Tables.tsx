@@ -48,7 +48,7 @@ const Tables = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-20">
       <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-md border-b border-border/50">
         <div className="max-w-screen-xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { ArrowLeft, ShoppingCart, Printer } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import Navbar from "@/components/Navbar";
 
 interface MenuItem {
   id: number;
@@ -101,10 +100,10 @@ const Menu = () => {
   const total = subtotal + tax;
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="flex min-h-screen">
+    <div className="min-h-screen bg-background pb-20">
+      <div className="flex min-h-[calc(100vh-5rem)]">
         {/* Menu Section */}
-        <div className="flex-1 p-4 pb-24">
+        <div className="flex-1 p-4">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-4">
               <Link to="/tables" className="text-white hover:bg-muted p-2 rounded-full">
@@ -238,7 +237,6 @@ const Menu = () => {
           </div>
         </div>
       </div>
-      <Navbar />
     </div>
   );
 };
