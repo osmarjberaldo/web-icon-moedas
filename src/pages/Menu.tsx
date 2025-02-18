@@ -1,8 +1,8 @@
-
 import { useState, useEffect } from "react";
 import { ArrowLeft, ShoppingCart, Printer } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
+import OrderFinalizationDialog from "@/components/OrderFinalizationDialog";
 
 interface MenuItem {
   id: number;
@@ -27,6 +27,7 @@ const Menu = () => {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<number>(1);
   const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
+  const [isFinalizationOpen, setIsFinalizationOpen] = useState(false);
 
   const customerName = localStorage.getItem("customerName") || "Convidado";
   const tableNumber = localStorage.getItem("selectedTable") || "N/A";
@@ -105,7 +106,6 @@ const Menu = () => {
     <div className="min-h-screen bg-background pb-20">
       <Header />
       <div className="flex min-h-[calc(100vh-5rem)]">
-        {/* Menu Section */}
         <div className="flex-1 p-4">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-4">
@@ -183,7 +183,6 @@ const Menu = () => {
           </div>
         </div>
 
-        {/* Order Receipt */}
         <div className="w-96 bg-card border-l border-border p-6 hidden lg:block">
           <div className="sticky top-4">
             <div className="flex justify-between items-center mb-6">
@@ -233,7 +232,11 @@ const Menu = () => {
                 <Printer size={18} />
                 Imprimir
               </button>
-              <button className="w-full py-2 px-4 bg-primary text-primary-foreground rounded-lg font-semibold">
+              <button
+                className="w-full py-2 px-4 bg-primary text-primary-foreground rounded-lg font-semibold"
+                onClick={() => setIsFinalizationOpen(true)}
+                disabled={orderItems.length === 0}
+              >
                 Fazer Pedido
               </button>
             </div>
