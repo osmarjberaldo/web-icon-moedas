@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 
 interface Order {
   id: string;
@@ -27,6 +28,7 @@ interface Order {
 const Orders = () => {
   const [selectedStatus, setSelectedStatus] = useState<string>("all");
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const orders: Order[] = [
     {
@@ -95,8 +97,16 @@ const Orders = () => {
   };
 
   const handleGenerateInvoice = (order: Order) => {
-    // Aqui você pode implementar a lógica para gerar a fatura
-    console.log(`Gerando fatura para o pedido ${order.id}`);
+    // Guardar informações do pedido no localStorage para usar na página de finalização
+    localStorage.setItem("orderToFinalize", JSON.stringify(order));
+    
+    // Navegar para a página de finalização de conta
+    navigate(`/orders/${order.id}/finalize`);
+    
+    toast({
+      title: "Gerando fatura final",
+      description: `Preparando fatura para Mesa ${order.table} - Pedido ${order.id}`,
+    });
   };
 
   return (
