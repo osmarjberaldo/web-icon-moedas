@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ArrowLeft, ShoppingCart, Printer } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import Header from "@/components/Header";
 
 interface MenuItem {
   id: number;
@@ -101,6 +102,7 @@ const Menu = () => {
 
   return (
     <div className="min-h-screen bg-background pb-20">
+      <Header />
       <div className="flex min-h-[calc(100vh-5rem)]">
         {/* Menu Section */}
         <div className="flex-1 p-4">
