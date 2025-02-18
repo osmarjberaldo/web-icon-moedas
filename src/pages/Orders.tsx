@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { receipt, printer, trash, calendar } from "lucide-react";
+import { Receipt, Printer, Trash, Calendar } from "lucide-react";
 import Header from "@/components/Header";
 import {
   Table,
@@ -21,6 +21,7 @@ interface Order {
   total: number;
   customerName: string;
   time: string;
+  type: "Dine in" | "Takeaway" | "Delivery";
 }
 
 const Orders = () => {
@@ -28,40 +29,34 @@ const Orders = () => {
 
   const orders: Order[] = [
     {
-      id: "ORD001",
+      id: "#101",
       table: 1,
-      items: 4,
-      status: "pending",
-      total: 1250,
-      customerName: "John Doe",
-      time: "10:30 AM"
-    },
-    {
-      id: "ORD002",
-      table: 3,
-      items: 2,
-      status: "preparing",
-      total: 850,
-      customerName: "Jane Smith",
-      time: "10:45 AM"
-    },
-    {
-      id: "ORD003",
-      table: 5,
-      items: 6,
+      items: 8,
       status: "ready",
-      total: 2100,
-      customerName: "Mike Johnson",
-      time: "11:00 AM"
+      total: 250.00,
+      customerName: "Amrit Raj",
+      time: "January 18, 2025 08:32 PM",
+      type: "Dine in"
     },
     {
-      id: "ORD004",
-      table: 2,
-      items: 3,
-      status: "completed",
-      total: 950,
-      customerName: "Sarah Williams",
-      time: "11:15 AM"
+      id: "#102",
+      table: 3,
+      items: 8,
+      status: "ready",
+      total: 250.00,
+      customerName: "Amrit Raj",
+      time: "January 18, 2025 08:32 PM",
+      type: "Dine in"
+    },
+    {
+      id: "#103",
+      table: 5,
+      items: 8,
+      status: "ready",
+      total: 250.00,
+      customerName: "Amrit Raj",
+      time: "January 18, 2025 08:32 PM",
+      type: "Dine in"
     }
   ];
 
@@ -81,92 +76,84 @@ const Orders = () => {
     : orders.filter(order => order.status === selectedStatus);
 
   return (
-    <div className="min-h-screen pb-20">
+    <div className="min-h-screen bg-background">
       <Header />
-      <div className="max-w-screen-xl mx-auto px-4 py-6">
-        <div className="flex flex-col gap-6">
-          {/* Header Section */}
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-display font-semibold">Orders</h1>
-              <p className="text-muted-foreground">
-                Manage and track all orders
-              </p>
-            </div>
-            <div className="flex items-center gap-3">
-              <Button variant="outline" size="sm">
-                <calendar className="w-4 h-4 mr-2" />
-                Today
-              </Button>
-              <Button variant="outline" size="sm">
-                <printer className="w-4 h-4 mr-2" />
-                Print Report
-              </Button>
-            </div>
+      <div className="max-w-screen-xl mx-auto p-4">
+        {/* Header with back button and filters */}
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="icon" className="rounded-full">
+              <Calendar className="w-6 h-6" />
+            </Button>
+            <h1 className="text-2xl font-semibold">Orders</h1>
           </div>
-
-          {/* Filter Section */}
           <div className="flex gap-2">
-            {["all", "pending", "preparing", "ready", "completed", "cancelled"].map((status) => (
+            {["All", "In Progress", "Ready", "Completed"].map((status) => (
               <Button
                 key={status}
-                variant={selectedStatus === status ? "default" : "outline"}
+                variant={selectedStatus === status.toLowerCase() ? "default" : "secondary"}
                 size="sm"
-                onClick={() => setSelectedStatus(status)}
-                className="capitalize"
+                onClick={() => setSelectedStatus(status.toLowerCase())}
+                className="px-4 py-2 rounded-lg text-sm font-medium"
               >
                 {status}
               </Button>
             ))}
           </div>
+        </div>
 
-          {/* Orders Table */}
-          <div className="rounded-lg border">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Order ID</TableHead>
-                  <TableHead>Customer</TableHead>
-                  <TableHead>Table</TableHead>
-                  <TableHead>Items</TableHead>
-                  <TableHead>Total</TableHead>
-                  <TableHead>Time</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredOrders.map((order) => (
-                  <TableRow key={order.id}>
-                    <TableCell>{order.id}</TableCell>
-                    <TableCell>{order.customerName}</TableCell>
-                    <TableCell>Table {order.table}</TableCell>
-                    <TableCell>{order.items} items</TableCell>
-                    <TableCell>₹{order.total}</TableCell>
-                    <TableCell>{order.time}</TableCell>
-                    <TableCell>
-                      <Badge 
-                        className={`${getStatusColor(order.status)} capitalize`}
-                        variant="outline"
-                      >
-                        {order.status}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Button size="icon" variant="ghost">
-                          <receipt className="w-4 h-4" />
-                        </Button>
-                        <Button size="icon" variant="ghost" className="text-red-500">
-                          <trash className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
+        {/* Orders Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredOrders.map((order) => (
+            <div key={order.id} className="bg-card rounded-lg p-4 border border-border">
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="bg-yellow-500 text-yellow-950 w-12 h-12 rounded-lg flex items-center justify-center font-semibold text-lg">
+                    AM
+                  </div>
+                  <div>
+                    <h3 className="font-semibold">{order.customerName}</h3>
+                    <p className="text-sm text-muted-foreground">
+                      {order.id}/{order.type}
+                    </p>
+                  </div>
+                </div>
+                <Badge 
+                  variant="outline"
+                  className="bg-green-500/20 text-green-500"
+                >
+                  Ready
+                </Badge>
+              </div>
+              
+              <div className="text-sm text-muted-foreground mb-4">
+                {order.time}
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <span className="inline-block w-2 h-2 bg-green-500 rounded-full"></span>
+                  Ready to serve
+                </div>
+                <div className="text-sm">{order.items} Items</div>
+              </div>
+
+              <div className="mt-4 pt-4 border-t border-border flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground">Total</p>
+                  <p className="font-semibold">₹{order.total.toFixed(2)}</p>
+                </div>
+                <div className="flex gap-2">
+                  <Button size="icon" variant="ghost">
+                    <Receipt className="w-4 h-4" />
+                  </Button>
+                  <Button size="icon" variant="ghost" className="text-red-500">
+                    <Trash className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
