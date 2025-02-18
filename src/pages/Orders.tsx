@@ -37,7 +37,7 @@ const Orders = () => {
       status: "ready",
       total: 250.00,
       customerName: "Amrit Raj",
-      time: "January 18, 2025 08:32 PM",
+      time: "18 de Janeiro de 2025 20:32",
       type: "Dine in"
     },
     {
@@ -47,7 +47,7 @@ const Orders = () => {
       status: "ready",
       total: 250.00,
       customerName: "Amrit Raj",
-      time: "January 18, 2025 08:32 PM",
+      time: "18 de Janeiro de 2025 20:32",
       type: "Dine in"
     },
     {
@@ -57,7 +57,7 @@ const Orders = () => {
       status: "ready",
       total: 250.00,
       customerName: "Amrit Raj",
-      time: "January 18, 2025 08:32 PM",
+      time: "18 de Janeiro de 2025 20:32",
       type: "Dine in"
     }
   ];
@@ -73,12 +73,22 @@ const Orders = () => {
     return colors[status];
   };
 
+  const getStatusText = (status: Order["status"]) => {
+    const statusTexts = {
+      pending: "Pendente",
+      preparing: "Preparando",
+      ready: "Pronto",
+      completed: "Concluído",
+      cancelled: "Cancelado"
+    };
+    return statusTexts[status];
+  };
+
   const filteredOrders = selectedStatus === "all" 
     ? orders 
     : orders.filter(order => order.status === selectedStatus);
 
   const handleAddItems = (order: Order) => {
-    // Save order info to localStorage for the Menu page
     localStorage.setItem("selectedTable", order.table.toString());
     localStorage.setItem("existingOrderId", order.id);
     localStorage.setItem("customerName", order.customerName);
@@ -89,50 +99,55 @@ const Orders = () => {
     <div className="min-h-screen bg-background">
       <Header />
       <div className="max-w-screen-xl mx-auto p-4">
-        {/* Header with back button and filters */}
+        {/* Header com botão de volta e filtros */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" className="rounded-full">
               <Calendar className="w-6 h-6" />
             </Button>
-            <h1 className="text-2xl font-semibold">Orders</h1>
+            <h1 className="text-2xl font-semibold">Pedidos</h1>
           </div>
           <div className="flex gap-2">
-            {["All", "In Progress", "Ready", "Completed"].map((status) => (
+            {[
+              { key: "all", label: "Todos" },
+              { key: "preparing", label: "Em Preparo" },
+              { key: "ready", label: "Prontos" },
+              { key: "completed", label: "Concluídos" }
+            ].map((status) => (
               <Button
-                key={status}
-                variant={selectedStatus === status.toLowerCase() ? "default" : "secondary"}
+                key={status.key}
+                variant={selectedStatus === status.key ? "default" : "secondary"}
                 size="sm"
-                onClick={() => setSelectedStatus(status.toLowerCase())}
+                onClick={() => setSelectedStatus(status.key)}
                 className="px-4 py-2 rounded-lg text-sm font-medium"
               >
-                {status}
+                {status.label}
               </Button>
             ))}
           </div>
         </div>
 
-        {/* Orders Grid */}
+        {/* Grid de Pedidos */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredOrders.map((order) => (
             <div key={order.id} className="bg-card rounded-lg p-4 border border-border">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <div className="bg-yellow-500 text-yellow-950 w-12 h-12 rounded-lg flex items-center justify-center font-semibold text-lg">
-                    AM
+                    AR
                   </div>
                   <div>
                     <h3 className="font-semibold">{order.customerName}</h3>
                     <p className="text-sm text-muted-foreground">
-                      {order.id}/{order.type}
+                      {order.id}/Mesa {order.table}
                     </p>
                   </div>
                 </div>
                 <Badge 
                   variant="outline"
-                  className="bg-green-500/20 text-green-500"
+                  className={getStatusColor(order.status)}
                 >
-                  Ready
+                  {getStatusText(order.status)}
                 </Badge>
               </div>
               
@@ -143,16 +158,16 @@ const Orders = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <span className="inline-block w-2 h-2 bg-green-500 rounded-full"></span>
-                  Ready to serve
+                  Pronto para servir
                 </div>
-                <div className="text-sm">{order.items} Items</div>
+                <div className="text-sm">{order.items} Itens</div>
               </div>
 
               <div className="mt-4 pt-4 border-t border-border">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <p className="text-sm text-muted-foreground">Total</p>
-                    <p className="font-semibold">₹{order.total.toFixed(2)}</p>
+                    <p className="font-semibold">R${order.total.toFixed(2)}</p>
                   </div>
                   <div className="flex gap-2">
                     <Button size="icon" variant="ghost">
@@ -164,7 +179,7 @@ const Orders = () => {
                   </div>
                 </div>
 
-                {/* Add Items Button */}
+                {/* Botão Adicionar Itens */}
                 {order.status !== "completed" && order.status !== "cancelled" && (
                   <Dialog>
                     <DialogTrigger asChild>
@@ -174,39 +189,39 @@ const Orders = () => {
                       >
                         <span className="flex items-center gap-2">
                           <Plus className="w-4 h-4" />
-                          Add More Items
+                          Adicionar Mais Itens
                         </span>
                         <ChevronRight className="w-4 h-4" />
                       </Button>
                     </DialogTrigger>
                     <DialogContent>
                       <DialogHeader>
-                        <DialogTitle>Add Items to Order {order.id}</DialogTitle>
+                        <DialogTitle>Adicionar Itens ao Pedido {order.id}</DialogTitle>
                         <DialogDescription>
-                          Would you like to add more items to this order?
+                          Deseja adicionar mais itens a este pedido?
                         </DialogDescription>
                       </DialogHeader>
                       <div className="flex flex-col gap-4 mt-4">
                         <p className="text-sm text-muted-foreground">
-                          Current order details:
+                          Detalhes do pedido atual:
                         </p>
                         <div className="grid grid-cols-2 gap-4 text-sm">
                           <div>
-                            <p className="text-muted-foreground">Table</p>
-                            <p className="font-medium">Table {order.table}</p>
+                            <p className="text-muted-foreground">Mesa</p>
+                            <p className="font-medium">Mesa {order.table}</p>
                           </div>
                           <div>
-                            <p className="text-muted-foreground">Items</p>
-                            <p className="font-medium">{order.items} items</p>
+                            <p className="text-muted-foreground">Itens</p>
+                            <p className="font-medium">{order.items} itens</p>
                           </div>
                           <div>
                             <p className="text-muted-foreground">Total</p>
-                            <p className="font-medium">₹{order.total.toFixed(2)}</p>
+                            <p className="font-medium">R${order.total.toFixed(2)}</p>
                           </div>
                           <div>
                             <p className="text-muted-foreground">Status</p>
                             <Badge variant="outline" className={getStatusColor(order.status)}>
-                              {order.status}
+                              {getStatusText(order.status)}
                             </Badge>
                           </div>
                         </div>
@@ -214,7 +229,7 @@ const Orders = () => {
                           className="w-full mt-4"
                           onClick={() => handleAddItems(order)}
                         >
-                          Continue to Menu
+                          Continuar para o Menu
                         </Button>
                       </div>
                     </DialogContent>
