@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Receipt, Printer, Trash, Calendar, Plus, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -35,7 +34,7 @@ const Orders = () => {
       table: 1,
       items: 8,
       status: "ready",
-      total: 250.00,
+      total: 25000.00,
       customerName: "Amrit Raj",
       time: "18 de Janeiro de 2025 20:32",
       type: "Dine in"
@@ -45,7 +44,7 @@ const Orders = () => {
       table: 3,
       items: 8,
       status: "ready",
-      total: 250.00,
+      total: 25000.00,
       customerName: "Amrit Raj",
       time: "18 de Janeiro de 2025 20:32",
       type: "Dine in"
@@ -55,7 +54,7 @@ const Orders = () => {
       table: 5,
       items: 8,
       status: "ready",
-      total: 250.00,
+      total: 25000.00,
       customerName: "Amrit Raj",
       time: "18 de Janeiro de 2025 20:32",
       type: "Dine in"
@@ -99,7 +98,6 @@ const Orders = () => {
     <div className="min-h-screen bg-background">
       <Header />
       <div className="max-w-screen-xl mx-auto p-4">
-        {/* Header com botão de volta e filtros */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" className="rounded-full">
@@ -127,7 +125,6 @@ const Orders = () => {
           </div>
         </div>
 
-        {/* Grid de Pedidos */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredOrders.map((order) => (
             <div key={order.id} className="bg-card rounded-lg p-4 border border-border">
@@ -167,7 +164,7 @@ const Orders = () => {
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <p className="text-sm text-muted-foreground">Total</p>
-                    <p className="font-semibold">R${order.total.toFixed(2)}</p>
+                    <p className="font-semibold">Kz {order.total.toFixed(2)}</p>
                   </div>
                   <div className="flex gap-2">
                     <Button size="icon" variant="ghost">
@@ -179,7 +176,6 @@ const Orders = () => {
                   </div>
                 </div>
 
-                {/* Botão Adicionar Itens */}
                 {order.status !== "completed" && order.status !== "cancelled" && (
                   <Dialog>
                     <DialogTrigger asChild>
@@ -216,7 +212,7 @@ const Orders = () => {
                           </div>
                           <div>
                             <p className="text-muted-foreground">Total</p>
-                            <p className="font-medium">R${order.total.toFixed(2)}</p>
+                            <p className="font-medium">Kz {order.total.toFixed(2)}</p>
                           </div>
                           <div>
                             <p className="text-muted-foreground">Status</p>

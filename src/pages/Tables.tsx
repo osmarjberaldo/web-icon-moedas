@@ -58,14 +58,14 @@ const Tables = () => {
             <Link to="/" className="p-2 hover:bg-muted rounded-lg transition-colors">
               <ArrowLeft size={24} />
             </Link>
-            <h1 className="text-xl font-display font-semibold">Tables</h1>
+            <h1 className="text-xl font-display font-semibold">Mesas</h1>
           </div>
           <div className="flex gap-2">
             <button className="px-4 py-2 rounded-lg bg-muted hover:bg-muted/80 transition-colors">
-              All
+              Todas
             </button>
             <button className="px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
-              Available
+              Disponíveis
             </button>
           </div>
         </div>
@@ -80,7 +80,7 @@ const Tables = () => {
               }`}
             >
               <div className="flex items-start justify-between mb-4">
-                <h3 className="font-medium">Table {table.number}</h3>
+                <h3 className="font-medium">Mesa {table.number}</h3>
                 <span
                   className={`text-xs px-2 py-1 rounded-full ${
                     table.status === "Available"
@@ -88,7 +88,7 @@ const Tables = () => {
                       : "bg-yellow-500/20 text-yellow-500"
                   }`}
                 >
-                  {table.status}
+                  {table.status === "Available" ? "Disponível" : "Ocupada"}
                 </span>
               </div>
               <div className="flex flex-col items-center">
@@ -102,7 +102,7 @@ const Tables = () => {
                   {table.initials}
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Seats: {table.seats}
+                  Lugares: {table.seats}
                 </p>
               </div>
             </div>
@@ -114,3 +114,4 @@ const Tables = () => {
 };
 
 export default Tables;
+
