@@ -1,7 +1,8 @@
 
 import Navbar from "@/components/Navbar";
 import { ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 interface Table {
   id: number;
@@ -13,6 +14,17 @@ interface Table {
 }
 
 const Tables = () => {
+  const navigate = useNavigate();
+  const customerName = localStorage.getItem("customerName");
+  const partySize = localStorage.getItem("partySize");
+
+  // Verificar se veio do fluxo de novo pedido
+  useEffect(() => {
+    if (!customerName && !partySize && window.location.pathname === "/tables") {
+      navigate("/");
+    }
+  }, [customerName, partySize, navigate]);
+
   const tables: Table[] = [
     { id: 1, number: 1, initials: "AM", seats: 4, status: "Booked" },
     { id: 2, number: 2, initials: "MB", seats: 6, status: "Available", color: "yellow" },
@@ -31,6 +43,13 @@ const Tables = () => {
     { id: 15, number: 15, initials: "TW", seats: 3, status: "Booked", color: "primary" },
   ];
 
+  const handleTableSelect = (table: Table) => {
+    if (table.status === "Available") {
+      localStorage.setItem("selectedTable", table.number.toString());
+      navigate("/menu");
+    }
+  };
+
   return (
     <div className="min-h-screen pb-20">
       <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-md border-b border-border/50">
@@ -47,7 +66,7 @@ const Tables = () => {
                 All
               </button>
               <button className="px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
-                Booked
+                Available
               </button>
             </div>
           </div>
@@ -57,12 +76,18 @@ const Tables = () => {
       <main className="max-w-screen-xl mx-auto px-4 py-6">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {tables.map((table) => (
-            <div key={table.id} className="glass-card p-4">
+            <div
+              key={table.id}
+              onClick={() => handleTableSelect(table)}
+              className={`glass-card p-4 ${
+                table.status === "Available" ? "cursor-pointer hover:ring-2 hover:ring-primary" : "opacity-50"
+              }`}
+            >
               <div className="flex items-start justify-between mb-4">
                 <h3 className="font-medium">Table {table.number}</h3>
                 <span
                   className={`text-xs px-2 py-1 rounded-full ${
-                    table.status === "Booked"
+                    table.status === "Available"
                       ? "bg-green-500/20 text-green-500"
                       : "bg-yellow-500/20 text-yellow-500"
                   }`}

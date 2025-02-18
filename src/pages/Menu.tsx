@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowLeft, ShoppingCart, Printer } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -26,6 +25,16 @@ interface Category {
 const Menu = () => {
   const [selectedCategory, setSelectedCategory] = useState<number>(1);
   const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
+
+  const customerName = localStorage.getItem("customerName") || "Guest";
+  const tableNumber = localStorage.getItem("selectedTable") || "N/A";
+  const partySize = localStorage.getItem("partySize") || "N/A";
+
+  useEffect(() => {
+    if (!localStorage.getItem("selectedTable")) {
+      navigate("/");
+    }
+  }, []);
 
   const categories: Category[] = [
     { id: 1, name: "Starters", items: 6, color: "bg-[#D84C4C]", icon: "🍴" },
@@ -97,15 +106,18 @@ const Menu = () => {
         <div className="flex-1 p-4 pb-24">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-4">
-              <Link to="/" className="text-white hover:bg-muted p-2 rounded-full">
+              <Link to="/tables" className="text-white hover:bg-muted p-2 rounded-full">
                 <ArrowLeft size={24} />
               </Link>
               <h1 className="text-2xl font-bold">Menu</h1>
             </div>
             <div className="flex items-center gap-4">
               <div className="text-right">
-                <p className="font-semibold">Table No. 2</p>
-                <p className="text-sm text-muted-foreground">Customer Name</p>
+                <p className="font-semibold">Table No. {tableNumber}</p>
+                <p className="text-sm text-muted-foreground">{customerName}</p>
+                {partySize !== "N/A" && (
+                  <p className="text-xs text-muted-foreground">Party size: {partySize}</p>
+                )}
               </div>
             </div>
           </div>
