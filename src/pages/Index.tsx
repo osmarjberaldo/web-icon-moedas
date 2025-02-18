@@ -1,39 +1,33 @@
+
 import { Search, Bell, Calendar, Clock } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 const Index = () => {
   const currentDate = new Date();
-  const formattedDate = new Intl.DateTimeFormat('en-US', {
-    month: 'long',
+  const formattedDate = new Intl.DateTimeFormat('pt-AO', {
     day: 'numeric',
+    month: 'long',
     year: 'numeric'
   }).format(currentDate);
 
-  const formattedTime = new Intl.DateTimeFormat('en-US', {
+  const formattedTime = new Intl.DateTimeFormat('pt-AO', {
     hour: 'numeric',
-    minute: 'numeric',
-    hour12: true
+    minute: 'numeric'
   }).format(currentDate);
 
   const recentOrders = [
-    { id: 1, name: "Amrit Raj", items: 8, table: 3, status: "Ready" },
-    { id: 2, name: "Amrit Raj", items: 8, table: 3, status: "Ready" },
-    { id: 3, name: "Amrit Raj", items: 8, table: 3, status: "Ready" },
-    { id: 4, name: "Amrit Raj", items: 8, table: 3, status: "Ready" },
+    { id: 1, name: "Amrit Raj", items: 8, table: 3, status: "Pronto" },
+    { id: 2, name: "Amrit Raj", items: 8, table: 3, status: "Pronto" },
+    { id: 3, name: "Amrit Raj", items: 8, table: 3, status: "Pronto" },
+    { id: 4, name: "Amrit Raj", items: 8, table: 3, status: "Pronto" },
   ];
 
   const popularDishes = [
-    { id: 1, name: "Butter Chicken", orders: 250, image: "🍗" },
-    { id: 2, name: "Palak Paneer", orders: 190, image: "🥬" },
-    { id: 3, name: "Hyderabadi Biryani", orders: 300, image: "🍚" },
-    { id: 4, name: "Masala Dosa", orders: 220, image: "🥞" },
-    { id: 5, name: "Chole Bhature", orders: 270, image: "🥘" },
+    { id: 1, name: "Frango no Forno", orders: 250, image: "🍗" },
+    { id: 2, name: "Calulu", orders: 190, image: "🥬" },
+    { id: 3, name: "Mufete", orders: 300, image: "🐟" },
+    { id: 4, name: "Funge", orders: 220, image: "🥘" },
+    { id: 5, name: "Feijão de Óleo de Palma", orders: 270, image: "🍛" },
   ];
 
   return (
@@ -49,7 +43,7 @@ const Index = () => {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={20} />
                 <input
                   type="search"
-                  placeholder="Search"
+                  placeholder="Pesquisar"
                   className="w-[200px] bg-muted rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                 />
               </div>
@@ -73,8 +67,8 @@ const Index = () => {
             <section className="mb-8">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h2 className="text-2xl font-display mb-1">Good Morning, Amrit</h2>
-                  <p className="text-muted-foreground">Give your best services for customers 😊</p>
+                  <h2 className="text-2xl font-display mb-1">Bom dia, Amrit</h2>
+                  <p className="text-muted-foreground">Ofereça o melhor serviço aos clientes 😊</p>
                 </div>
                 <div className="flex items-center gap-4 text-muted-foreground">
                   <div className="flex items-center gap-2">
@@ -95,9 +89,9 @@ const Index = () => {
                       <span className="text-2xl">💰</span>
                     </div>
                     <div>
-                      <p className="text-muted-foreground text-sm">Total Earnings</p>
-                      <h3 className="text-4xl font-semibold mt-1">₹512</h3>
-                      <p className="text-sm text-green-500 mt-1">1.6% than yesterday</p>
+                      <p className="text-muted-foreground text-sm">Total de Ganhos</p>
+                      <h3 className="text-4xl font-semibold mt-1">Kz 5.120</h3>
+                      <p className="text-sm text-green-500 mt-1">1.6% mais que ontem</p>
                     </div>
                   </div>
                 </div>
@@ -107,9 +101,9 @@ const Index = () => {
                       <span className="text-2xl">⏳</span>
                     </div>
                     <div>
-                      <p className="text-muted-foreground text-sm">In Progress</p>
+                      <p className="text-muted-foreground text-sm">Em Andamento</p>
                       <h3 className="text-4xl font-semibold mt-1">16</h3>
-                      <p className="text-sm text-green-500 mt-1">3.6% than yesterday</p>
+                      <p className="text-sm text-green-500 mt-1">3.6% mais que ontem</p>
                     </div>
                   </div>
                 </div>
@@ -118,8 +112,8 @@ const Index = () => {
 
             <section>
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-display font-medium">Recent Orders</h2>
-                <button className="text-sm text-primary hover:text-primary/80">View all</button>
+                <h2 className="text-xl font-display font-medium">Pedidos Recentes</h2>
+                <button className="text-sm text-primary hover:text-primary/80">Ver todos</button>
               </div>
               <div className="glass-card divide-y divide-border/50">
                 {recentOrders.map((order) => (
@@ -130,12 +124,12 @@ const Index = () => {
                       </div>
                       <div>
                         <h3 className="font-medium">{order.name}</h3>
-                        <p className="text-sm text-muted-foreground">{order.items} Items</p>
+                        <p className="text-sm text-muted-foreground">{order.items} Itens</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-4">
                       <span className="px-3 py-1 rounded-lg bg-primary/10 text-primary text-sm">
-                        Table No: {order.table}
+                        Mesa: {order.table}
                       </span>
                       <span className="text-green-500 text-sm">{order.status}</span>
                     </div>
@@ -148,8 +142,8 @@ const Index = () => {
           <div className="w-80">
             <section>
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-display font-medium">Popular Dishes</h2>
-                <button className="text-sm text-primary hover:text-primary/80">View all</button>
+                <h2 className="text-xl font-display font-medium">Pratos Populares</h2>
+                <button className="text-sm text-primary hover:text-primary/80">Ver todos</button>
               </div>
               <div className="space-y-4">
                 {popularDishes.map((dish, index) => (
@@ -162,7 +156,7 @@ const Index = () => {
                         <span className="text-muted-foreground font-medium">0{index + 1}</span>
                         <h3 className="font-medium">{dish.name}</h3>
                       </div>
-                      <p className="text-sm text-muted-foreground">Orders: {dish.orders}</p>
+                      <p className="text-sm text-muted-foreground">Pedidos: {dish.orders}</p>
                     </div>
                   </div>
                 ))}

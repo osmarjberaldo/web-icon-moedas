@@ -20,7 +20,6 @@ const Navbar = () => {
   const [partySize, setPartySize] = useState("");
 
   const handleNewOrder = () => {
-    // Salvar os dados em localStorage para usar nas outras páginas
     localStorage.setItem("customerName", customerName);
     localStorage.setItem("partySize", partySize);
     setIsDialogOpen(false);
@@ -32,11 +31,11 @@ const Navbar = () => {
       <div className="max-w-screen-xl mx-auto flex justify-between items-center">
         <Link to="/" className={`nav-item ${location.pathname === "/" ? "active" : ""}`}>
           <Home size={24} />
-          <span className="text-sm">Home</span>
+          <span className="text-sm">Início</span>
         </Link>
         <Link to="/orders" className={`nav-item ${location.pathname === "/orders" ? "active" : ""}`}>
           <ClipboardList size={24} />
-          <span className="text-sm">Orders</span>
+          <span className="text-sm">Pedidos</span>
         </Link>
         <div className="relative -mt-8">
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -47,28 +46,28 @@ const Navbar = () => {
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>New Order Details</DialogTitle>
+                <DialogTitle>Detalhes do Novo Pedido</DialogTitle>
               </DialogHeader>
               <div className="grid gap-4 py-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Customer Name (Optional)</label>
+                  <label className="text-sm font-medium">Nome do Cliente (Opcional)</label>
                   <Input
-                    placeholder="Enter customer name"
+                    placeholder="Digite o nome do cliente"
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Number of People (Optional)</label>
+                  <label className="text-sm font-medium">Número de Pessoas (Opcional)</label>
                   <Input
                     type="number"
-                    placeholder="Enter party size"
+                    placeholder="Digite o número de pessoas"
                     value={partySize}
                     onChange={(e) => setPartySize(e.target.value)}
                   />
                 </div>
                 <Button onClick={handleNewOrder} className="w-full">
-                  Continue to Select Table
+                  Continuar para Selecionar Mesa
                 </Button>
               </div>
             </DialogContent>
@@ -76,11 +75,11 @@ const Navbar = () => {
         </div>
         <Link to="/tables" className={`nav-item ${location.pathname === "/tables" ? "active" : ""}`}>
           <Users size={24} />
-          <span className="text-sm">Tables</span>
+          <span className="text-sm">Mesas</span>
         </Link>
         <button className="nav-item">
           <MoreVertical size={24} />
-          <span className="text-sm">More</span>
+          <span className="text-sm">Mais</span>
         </button>
       </div>
     </nav>
