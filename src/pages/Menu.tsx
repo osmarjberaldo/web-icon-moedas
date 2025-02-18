@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { ArrowLeft, ShoppingCart, Printer } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
@@ -27,7 +28,7 @@ const Menu = () => {
   const [selectedCategory, setSelectedCategory] = useState<number>(1);
   const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
 
-  const customerName = localStorage.getItem("customerName") || "Guest";
+  const customerName = localStorage.getItem("customerName") || "Convidado";
   const tableNumber = localStorage.getItem("selectedTable") || "N/A";
   const partySize = localStorage.getItem("partySize") || "N/A";
 
@@ -38,23 +39,23 @@ const Menu = () => {
   }, [navigate]);
 
   const categories: Category[] = [
-    { id: 1, name: "Starters", items: 6, color: "bg-[#D84C4C]", icon: "🍴" },
-    { id: 2, name: "Main Course", items: 6, color: "bg-[#6C5DD3]", icon: "🍱" },
-    { id: 3, name: "Beverages", items: 6, color: "bg-[#B548C6]", icon: "🥤" },
-    { id: 4, name: "Soups", items: 6, color: "bg-[#916E45]", icon: "🥣" },
-    { id: 5, name: "Desserts", items: 4, color: "bg-[#2B3375]", icon: "🍰" },
-    { id: 6, name: "Pizzas", items: 3, color: "bg-[#3A8242]", icon: "🍕" },
-    { id: 7, name: "Alcoholic Drinks", items: 6, color: "bg-[#C84C4C]", icon: "🍷" },
-    { id: 8, name: "Salads", items: 5, color: "bg-[#7C5DD3]", icon: "🥗" },
+    { id: 1, name: "Entradas", items: 6, color: "bg-[#D84C4C]", icon: "🍴" },
+    { id: 2, name: "Pratos Principais", items: 6, color: "bg-[#6C5DD3]", icon: "🍱" },
+    { id: 3, name: "Bebidas", items: 6, color: "bg-[#B548C6]", icon: "🥤" },
+    { id: 4, name: "Sopas", items: 6, color: "bg-[#916E45]", icon: "🥣" },
+    { id: 5, name: "Sobremesas", items: 4, color: "bg-[#2B3375]", icon: "🍰" },
+    { id: 6, name: "Pratos Típicos", items: 3, color: "bg-[#3A8242]", icon: "🍖" },
+    { id: 7, name: "Bebidas Alcoólicas", items: 6, color: "bg-[#C84C4C]", icon: "🍷" },
+    { id: 8, name: "Saladas", items: 5, color: "bg-[#7C5DD3]", icon: "🥗" },
   ];
 
   const menuItems: MenuItem[] = [
-    { id: 1, name: "Paneer Tikka", price: 250, quantity: 0 },
-    { id: 2, name: "Chicken Tikka", price: 300, quantity: 0 },
-    { id: 3, name: "Tandoori Chicken", price: 350, quantity: 0 },
-    { id: 4, name: "Samosa", price: 100, quantity: 0 },
-    { id: 5, name: "Aloo Tikki", price: 120, quantity: 0 },
-    { id: 6, name: "Hara Bhara Kebab", price: 220, quantity: 0 },
+    { id: 1, name: "Muamba de Galinha", price: 5000, quantity: 0 },
+    { id: 2, name: "Calulu de Peixe", price: 6000, quantity: 0 },
+    { id: 3, name: "Mufete Completo", price: 7500, quantity: 0 },
+    { id: 4, name: "Funge com Calulu", price: 4500, quantity: 0 },
+    { id: 5, name: "Kissaca", price: 3500, quantity: 0 },
+    { id: 6, name: "Feijão de Óleo de Palma", price: 4000, quantity: 0 },
   ];
 
   const handleQuantityChange = (itemId: number, increment: boolean) => {
@@ -111,14 +112,14 @@ const Menu = () => {
               <Link to="/tables" className="text-white hover:bg-muted p-2 rounded-full">
                 <ArrowLeft size={24} />
               </Link>
-              <h1 className="text-2xl font-bold">Menu</h1>
+              <h1 className="text-2xl font-bold">Cardápio</h1>
             </div>
             <div className="flex items-center gap-4">
               <div className="text-right">
-                <p className="font-semibold">Table No. {tableNumber}</p>
+                <p className="font-semibold">Mesa {tableNumber}</p>
                 <p className="text-sm text-muted-foreground">{customerName}</p>
                 {partySize !== "N/A" && (
-                  <p className="text-xs text-muted-foreground">Party size: {partySize}</p>
+                  <p className="text-xs text-muted-foreground">Pessoas: {partySize}</p>
                 )}
               </div>
             </div>
@@ -139,7 +140,7 @@ const Menu = () => {
                     <h3 className="text-lg font-semibold text-white">
                       {category.name}
                     </h3>
-                    <p className="text-sm text-white/80">{category.items} Items</p>
+                    <p className="text-sm text-white/80">{category.items} Itens</p>
                   </div>
                   {selectedCategory === category.id && (
                     <div className="absolute top-2 right-2 w-3 h-3 bg-primary rounded-full" />
@@ -157,7 +158,7 @@ const Menu = () => {
               >
                 <div>
                   <h3 className="font-semibold">{item.name}</h3>
-                  <p className="text-sm text-muted-foreground">₹{item.price}</p>
+                  <p className="text-sm text-muted-foreground">Kz {item.price.toFixed(2)}</p>
                 </div>
                 <div className="flex items-center gap-4">
                   <button
@@ -187,9 +188,9 @@ const Menu = () => {
           <div className="sticky top-4">
             <div className="flex justify-between items-center mb-6">
               <div>
-                <h2 className="text-xl font-bold">Order Details</h2>
+                <h2 className="text-xl font-bold">Detalhes do Pedido</h2>
                 <p className="text-sm text-muted-foreground">
-                  {new Date().toLocaleString()}
+                  {new Date().toLocaleString('pt-AO')}
                 </p>
               </div>
               <div className="bg-yellow-400 text-black font-bold px-3 py-1 rounded text-sm">
@@ -207,33 +208,33 @@ const Menu = () => {
                       <span>x{item.quantity}</span>
                     </div>
                   </div>
-                  <p>₹{item.total}</p>
+                  <p>Kz {item.total.toFixed(2)}</p>
                 </div>
               ))}
             </div>
 
             <div className="border-t border-border pt-4 space-y-2">
               <div className="flex justify-between">
-                <p className="text-muted-foreground">Items({orderItems.length})</p>
-                <p>₹{subtotal}</p>
+                <p className="text-muted-foreground">Itens({orderItems.length})</p>
+                <p>Kz {subtotal.toFixed(2)}</p>
               </div>
               <div className="flex justify-between">
-                <p className="text-muted-foreground">Tax(5.25%)</p>
-                <p>₹{tax.toFixed(2)}</p>
+                <p className="text-muted-foreground">IVA(5.25%)</p>
+                <p>Kz {tax.toFixed(2)}</p>
               </div>
               <div className="flex justify-between font-bold pt-2 border-t border-border">
                 <p>Total</p>
-                <p>₹{total.toFixed(2)}</p>
+                <p>Kz {total.toFixed(2)}</p>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4 mt-6">
               <button className="flex items-center justify-center gap-2 w-full py-2 px-4 bg-accent text-accent-foreground rounded-lg">
                 <Printer size={18} />
-                Print
+                Imprimir
               </button>
               <button className="w-full py-2 px-4 bg-primary text-primary-foreground rounded-lg font-semibold">
-                Place Order
+                Fazer Pedido
               </button>
             </div>
           </div>
