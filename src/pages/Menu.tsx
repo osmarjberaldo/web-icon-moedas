@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ArrowLeft, ShoppingCart, Printer } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 
 interface MenuItem {
@@ -23,6 +23,7 @@ interface Category {
 }
 
 const Menu = () => {
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<number>(1);
   const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
 
@@ -34,7 +35,7 @@ const Menu = () => {
     if (!localStorage.getItem("selectedTable")) {
       navigate("/");
     }
-  }, []);
+  }, [navigate]);
 
   const categories: Category[] = [
     { id: 1, name: "Starters", items: 6, color: "bg-[#D84C4C]", icon: "🍴" },
