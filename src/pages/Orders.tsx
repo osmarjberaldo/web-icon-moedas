@@ -1,15 +1,16 @@
 
 import { useState } from "react";
-import { Receipt, Printer, Trash, Calendar } from "lucide-react";
+import { Receipt, Printer, Trash, Calendar, Plus, ChevronRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -26,6 +27,7 @@ interface Order {
 
 const Orders = () => {
   const [selectedStatus, setSelectedStatus] = useState<string>("all");
+  const navigate = useNavigate();
 
   const orders: Order[] = [
     {
@@ -74,6 +76,14 @@ const Orders = () => {
   const filteredOrders = selectedStatus === "all" 
     ? orders 
     : orders.filter(order => order.status === selectedStatus);
+
+  const handleAddItems = (order: Order) => {
+    // Save order info to localStorage for the Menu page
+    localStorage.setItem("selectedTable", order.table.toString());
+    localStorage.setItem("existingOrderId", order.id);
+    localStorage.setItem("customerName", order.customerName);
+    navigate("/menu");
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -138,19 +148,78 @@ const Orders = () => {
                 <div className="text-sm">{order.items} Items</div>
               </div>
 
-              <div className="mt-4 pt-4 border-t border-border flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-muted-foreground">Total</p>
-                  <p className="font-semibold">₹{order.total.toFixed(2)}</p>
+              <div className="mt-4 pt-4 border-t border-border">
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <p className="text-sm text-muted-foreground">Total</p>
+                    <p className="font-semibold">₹{order.total.toFixed(2)}</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button size="icon" variant="ghost">
+                      <Receipt className="w-4 h-4" />
+                    </Button>
+                    <Button size="icon" variant="ghost" className="text-red-500">
+                      <Trash className="w-4 h-4" />
+                    </Button>
+                  </div>
                 </div>
-                <div className="flex gap-2">
-                  <Button size="icon" variant="ghost">
-                    <Receipt className="w-4 h-4" />
-                  </Button>
-                  <Button size="icon" variant="ghost" className="text-red-500">
-                    <Trash className="w-4 h-4" />
-                  </Button>
-                </div>
+
+                {/* Add Items Button */}
+                {order.status !== "completed" && order.status !== "cancelled" && (
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button 
+                        variant="outline" 
+                        className="w-full flex items-center justify-between"
+                      >
+                        <span className="flex items-center gap-2">
+                          <Plus className="w-4 h-4" />
+                          Add More Items
+                        </span>
+                        <ChevronRight className="w-4 h-4" />
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Add Items to Order {order.id}</DialogTitle>
+                        <DialogDescription>
+                          Would you like to add more items to this order?
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="flex flex-col gap-4 mt-4">
+                        <p className="text-sm text-muted-foreground">
+                          Current order details:
+                        </p>
+                        <div className="grid grid-cols-2 gap-4 text-sm">
+                          <div>
+                            <p className="text-muted-foreground">Table</p>
+                            <p className="font-medium">Table {order.table}</p>
+                          </div>
+                          <div>
+                            <p className="text-muted-foreground">Items</p>
+                            <p className="font-medium">{order.items} items</p>
+                          </div>
+                          <div>
+                            <p className="text-muted-foreground">Total</p>
+                            <p className="font-medium">₹{order.total.toFixed(2)}</p>
+                          </div>
+                          <div>
+                            <p className="text-muted-foreground">Status</p>
+                            <Badge variant="outline" className={getStatusColor(order.status)}>
+                              {order.status}
+                            </Badge>
+                          </div>
+                        </div>
+                        <Button 
+                          className="w-full mt-4"
+                          onClick={() => handleAddItems(order)}
+                        >
+                          Continue to Menu
+                        </Button>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                )}
               </div>
             </div>
           ))}
