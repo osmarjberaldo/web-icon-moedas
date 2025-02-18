@@ -1,5 +1,3 @@
-
-import Navbar from "@/components/Navbar";
 import { Search, Bell, Calendar, Clock } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -39,7 +37,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen pb-20">
+    <div className="min-h-screen">
       <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-md border-b border-border/50">
         <div className="max-w-screen-xl mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
@@ -173,8 +171,6 @@ const Index = () => {
           </div>
         </div>
       </main>
-
-      <Navbar />
     </div>
   );
 };

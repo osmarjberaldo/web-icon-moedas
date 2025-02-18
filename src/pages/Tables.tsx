@@ -1,5 +1,3 @@
-
-import Navbar from "@/components/Navbar";
 import { ArrowLeft } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -18,7 +16,6 @@ const Tables = () => {
   const customerName = localStorage.getItem("customerName");
   const partySize = localStorage.getItem("partySize");
 
-  // Verificar se veio do fluxo de novo pedido
   useEffect(() => {
     if (!customerName && !partySize && window.location.pathname === "/tables") {
       navigate("/");
@@ -51,7 +48,7 @@ const Tables = () => {
   };
 
   return (
-    <div className="min-h-screen pb-20">
+    <div className="min-h-screen">
       <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-md border-b border-border/50">
         <div className="max-w-screen-xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
@@ -113,8 +110,6 @@ const Tables = () => {
           ))}
         </div>
       </main>
-
-      <Navbar />
     </div>
   );
 };
