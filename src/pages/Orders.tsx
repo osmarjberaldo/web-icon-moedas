@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Receipt, Printer, Trash, Calendar, Plus, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -6,13 +5,13 @@ import Header from "@/components/Header";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
 
 interface Order {
   id: string;
@@ -28,7 +27,6 @@ interface Order {
 const Orders = () => {
   const [selectedStatus, setSelectedStatus] = useState<string>("all");
   const navigate = useNavigate();
-  const { toast } = useToast();
 
   const orders: Order[] = [
     {
@@ -94,19 +92,6 @@ const Orders = () => {
     localStorage.setItem("existingOrderId", order.id);
     localStorage.setItem("customerName", order.customerName);
     navigate("/menu");
-  };
-
-  const handleGenerateInvoice = (order: Order) => {
-    // Guardar informações do pedido no localStorage para usar na página de finalização
-    localStorage.setItem("orderToFinalize", JSON.stringify(order));
-    
-    // Navegar para a página de finalização de conta
-    navigate(`/orders/${order.id}/finalize`);
-    
-    toast({
-      title: "Gerando fatura final",
-      description: `Preparando fatura para Mesa ${order.table} - Pedido ${order.id}`,
-    });
   };
 
   return (
@@ -182,12 +167,7 @@ const Orders = () => {
                     <p className="font-semibold">Kz {order.total.toFixed(2)}</p>
                   </div>
                   <div className="flex gap-2">
-                    <Button 
-                      size="icon" 
-                      variant="ghost"
-                      onClick={() => handleGenerateInvoice(order)}
-                      className="text-green-600 hover:text-green-700 hover:bg-green-100"
-                    >
+                    <Button size="icon" variant="ghost">
                       <Receipt className="w-4 h-4" />
                     </Button>
                     <Button size="icon" variant="ghost" className="text-red-500">
@@ -213,6 +193,9 @@ const Orders = () => {
                     <DialogContent>
                       <DialogHeader>
                         <DialogTitle>Adicionar Itens ao Pedido {order.id}</DialogTitle>
+                        <DialogDescription>
+                          Deseja adicionar mais itens a este pedido?
+                        </DialogDescription>
                       </DialogHeader>
                       <div className="flex flex-col gap-4 mt-4">
                         <p className="text-sm text-muted-foreground">
