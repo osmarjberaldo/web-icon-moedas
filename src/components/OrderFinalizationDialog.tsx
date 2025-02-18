@@ -10,7 +10,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { Kitchen, SendHorizontal } from "lucide-react";
+import { Utensils } from "lucide-react";
 
 interface OrderItem {
   id: number;
@@ -116,7 +116,7 @@ const OrderFinalizationDialog = ({
             onClick={handleSendToKitchen}
             className="bg-green-600 hover:bg-green-700"
           >
-            <Kitchen className="mr-2" size={18} />
+            <Utensils className="mr-2" size={18} />
             Enviar para Cozinha
           </Button>
         </DialogFooter>
