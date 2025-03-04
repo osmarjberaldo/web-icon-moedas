@@ -1,6 +1,7 @@
 
 import { Search, Bell } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
   return (
@@ -22,6 +23,7 @@ const Header = () => {
             <button className="p-2 rounded-full hover:bg-muted transition-colors">
               <Bell size={24} />
             </button>
+            <ThemeToggle />
             <div className="flex items-center gap-2">
               <span className="text-sm font-medium">Amrit Raj</span>
               <Avatar className="h-8 w-8">
