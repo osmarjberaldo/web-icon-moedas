@@ -34,20 +34,20 @@ export default {
           foreground: "#FFFFFF",
         },
         muted: {
-          DEFAULT: "#252629",
-          foreground: "#A1A1AA",
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
           DEFAULT: "#3B82F6",
           foreground: "#FFFFFF",
         },
         card: {
-          DEFAULT: "#252629",
-          foreground: "#FFFFFF",
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
         popover: {
-          DEFAULT: "#252629",
-          foreground: "#FFFFFF",
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
         status: {
           ready: "#4CAF50",
