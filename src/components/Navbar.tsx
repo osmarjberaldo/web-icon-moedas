@@ -11,7 +11,6 @@ import {
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const location = useLocation();
@@ -39,7 +38,6 @@ const Navbar = () => {
           <span className="text-sm">Pedidos</span>
         </Link>
         <div className="relative -mt-8 flex space-x-3">
-          <ThemeToggle />
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
               <button className="w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-lg hover:bg-primary/90 transition-colors">
